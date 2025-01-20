@@ -24,23 +24,23 @@ public class Usuario {
 
     @Id //Anotação referente ao id da tabela
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Indicação de ID automático
-    @Column(name = "id", unique = true) 
+    @Column(name = "id", unique = true) //Indico o nome da tabela e que a mesma não pode se repetir
     private Long id;
     
-    @Column(name = "curso", length = 50, nullable = true) 
-    @NotBlank
+    @Column(name = "curso", length = 50, nullable = false)  //Determino o nome e indico a quantidade máxima varchar(50)
+    @NotBlank //Indico que não pode nem ser vazio e nulo
     private String curso;
 
-    @Column(name = "matricula", length = 20, nullable = true, unique = true)
+    @Column(name = "matricula", length = 20, nullable = false, unique = true)
     @NotBlank
     private String matricula;
 
-    @Column(name = "senha", length = 20, nullable = true)
-    @Size(min = 8, max = 20)
+    @Column(name = "senha", length = 20, nullable = false)
+    @Size(min = 8, max = 20) //Indicação do tamanho máximo e minimo do campo
     @NotBlank
     private String senha;
 
-    @Column(name = "nome", length = 100, nullable = true)
+    @Column(name = "nome", length = 100, nullable = false)
     @NotBlank
     private String nome;
 
