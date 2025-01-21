@@ -12,8 +12,8 @@ import java.util.Objects;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
 @Entity
-@Table(name =reserva.TABLE_NAME)
-public class reserva {
+@Table(name = Reserva.TABLE_NAME)
+public class Reserva{
     
     public static final String TABLE_NAME = "reserva"; 
 
@@ -27,10 +27,10 @@ public class reserva {
     private Date dataReserva;
     
 
-    public reserva() {
+    public Reserva() {
     }
 
-    public reserva(long id, Date dataReserva) {
+    public Reserva(long id, Date dataReserva) {
         this.id = id;
         this.dataReserva = dataReserva;
     }
@@ -51,12 +51,12 @@ public class reserva {
         this.dataReserva = dataReserva;
     }
 
-    public reserva id(long id) {
+    public Reserva id(long id) {
         setId(id);
         return this;
     }
 
-    public reserva dataReserva(Date dataReserva) {
+    public Reserva dataReserva(Date dataReserva) {
         setDataReserva(dataReserva);
         return this;
     }

@@ -22,11 +22,11 @@ public class Laboratorio {
     @Column(name = "id", unique = true)
     private long id; 
 
-    @Column(name = "detalhamentoLab", length = 100, nullable = true )
+    @Column(name = "descricao", length = 100, nullable = true )
     @NotBlank
     private String detalhamentoLab; 
 
-    @Column(name = "descricao", columnDefinition = "TEXT", nullable = true)
+    @Column(name = "detalhesLab", columnDefinition = "TEXT", nullable = true)
     @NotBlank
     private String descricao;
     
