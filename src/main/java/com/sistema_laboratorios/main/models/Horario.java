@@ -8,10 +8,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.Objects;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = Horario.TABLE_NAME)
@@ -35,8 +39,19 @@ public class Horario {
     @Column(name = "disponivel", columnDefinition = "TINYINT(1) DEFAULT 1")
     private boolean disponivel = true;
 
-    // @Column(name = "laboratorio", nullable = false)
-    // private Laboratorio laboratorio;
+    /* Anotações das chaves estrangeiras */
+
+    //A lógica é que vários horários podem estar vinculados a um unico laboratório
+    @ManyToOne  //Anotação onde indico que há muitos horários para 1 só láboratório
+    @JoinColumn(name = "laboratorioHorario", nullable = false)
+    @JsonBackReference //Essa anotação é de suma importância pois ela não permite a inserção de um loop quando é solicitado o Json dos laboratórios. Sem ela, ocorrerá um loop infinito quando tentarmos visualizar os laboratórios
+    private Laboratorio laboratorioHorario;
+
+    //Mesma lógica acima. Um horário pode ter somente uma reserva, contudo, uma reserva pode ter vários horários
+    @ManyToOne
+    @JoinColumn(name = "reservaHorario", nullable = true) //Como nem todos os horários terão reserva, a mesma poderá ser true
+    @JsonBackReference
+    private Reserva reservaHorario;
 
     public Horario() {
     }

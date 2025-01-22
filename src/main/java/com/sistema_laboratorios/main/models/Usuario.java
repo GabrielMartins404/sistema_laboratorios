@@ -7,13 +7,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 // Tabela de usuarios
 @Entity //Defino a classe como entidade
@@ -47,6 +52,10 @@ public class Usuario {
     @Column(name = "nascimento")
     private Date nascimento;
 
+    /* Anotações das chaves estrangeiras */
+    @OneToMany(mappedBy = "usuarioReserva") //Indico que o um usuario
+    @JsonManagedReference
+    private List<Reserva> reservas = new ArrayList<Reserva>();
 
     public Usuario() {}
 
