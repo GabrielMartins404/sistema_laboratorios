@@ -2,13 +2,10 @@ package com.sistema_laboratorios.main.services;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.sistema_laboratorios.main.models.Horario;
-import com.sistema_laboratorios.main.models.Laboratorio;
 import com.sistema_laboratorios.main.models.Reserva;
 import com.sistema_laboratorios.main.repositories.HorarioRepository;
 

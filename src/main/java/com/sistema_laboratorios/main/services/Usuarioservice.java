@@ -1,16 +1,11 @@
 package com.sistema_laboratorios.main.services;
-
 import java.util.Optional;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.sistema_laboratorios.main.models.Usuario;
 import com.sistema_laboratorios.main.repositories.UsuarioRepository;
-
 import jakarta.transaction.Transactional;
-import java.util.Objects;
 
 @Service
 public class Usuarioservice{
