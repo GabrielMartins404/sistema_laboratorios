@@ -53,15 +53,18 @@ public class Horario {
     @JsonBackReference
     private Reserva reservaHorario;
 
+    
     public Horario() {
     }
 
-    public Horario(Long id, Time horaInicio, Time horaFim, Date data, boolean disponivel) {
+    public Horario(Long id, Time horaInicio, Time horaFim, Date data, boolean disponivel, Laboratorio laboratorioHorario, Reserva reservaHorario) {
         this.id = id;
         this.horaInicio = horaInicio;
         this.horaFim = horaFim;
         this.data = data;
         this.disponivel = disponivel;
+        this.laboratorioHorario = laboratorioHorario;
+        this.reservaHorario = reservaHorario;
     }
 
     public Long getId() {
@@ -108,6 +111,22 @@ public class Horario {
         this.disponivel = disponivel;
     }
 
+    public Laboratorio getLaboratorioHorario() {
+        return this.laboratorioHorario;
+    }
+
+    public void setLaboratorioHorario(Laboratorio laboratorioHorario) {
+        this.laboratorioHorario = laboratorioHorario;
+    }
+
+    public Reserva getReservaHorario() {
+        return this.reservaHorario;
+    }
+
+    public void setReservaHorario(Reserva reservaHorario) {
+        this.reservaHorario = reservaHorario;
+    }
+
     public Horario id(Long id) {
         setId(id);
         return this;
@@ -133,6 +152,16 @@ public class Horario {
         return this;
     }
 
+    public Horario laboratorioHorario(Laboratorio laboratorioHorario) {
+        setLaboratorioHorario(laboratorioHorario);
+        return this;
+    }
+
+    public Horario reservaHorario(Reserva reservaHorario) {
+        setReservaHorario(reservaHorario);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
       return EqualsBuilder.reflectionEquals(this, o);
@@ -140,7 +169,8 @@ public class Horario {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, horaInicio, horaFim, data, disponivel);
+        return Objects.hash(id, horaInicio, horaFim, data, disponivel, laboratorioHorario, reservaHorario);
     }
+
 
 }

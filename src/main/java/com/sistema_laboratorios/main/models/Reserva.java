@@ -48,19 +48,21 @@ public class Reserva{
     @JsonManagedReference //Uso essa anotação para evitar uma visualização de loop infinito quando solicitar os horários vinculados a uma reserva 
     private List<Horario> horarios = new ArrayList<Horario>();
 
+
     public Reserva() {
     }
 
-    public Reserva(long id, Date dataReserva) {
+    public Reserva(Long id, Date dataReserva, Usuario usuarioReserva) {
         this.id = id;
         this.dataReserva = dataReserva;
+        this.usuarioReserva = usuarioReserva;
     }
 
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -72,13 +74,39 @@ public class Reserva{
         this.dataReserva = dataReserva;
     }
 
-    public Reserva id(long id) {
+    public Usuario getUsuarioReserva() {
+        return this.usuarioReserva;
+    }
+
+    public void setUsuarioReserva(Usuario usuarioReserva) {
+        this.usuarioReserva = usuarioReserva;
+    }
+
+    public List<Horario> getHorarios() {
+        return this.horarios;
+    }
+
+    public void setHorarios(List<Horario> horarios) {
+        this.horarios = horarios;
+    }
+
+    public Reserva id(Long id) {
         setId(id);
         return this;
     }
 
     public Reserva dataReserva(Date dataReserva) {
         setDataReserva(dataReserva);
+        return this;
+    }
+
+    public Reserva usuarioReserva(Usuario usuarioReserva) {
+        setUsuarioReserva(usuarioReserva);
+        return this;
+    }
+
+    public Reserva horarios(List<Horario> horarios) {
+        setHorarios(horarios);
         return this;
     }
 
@@ -89,9 +117,7 @@ public class Reserva{
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dataReserva);
+        return Objects.hash(id, dataReserva, usuarioReserva, horarios);
     }
-
-    
 
 }
