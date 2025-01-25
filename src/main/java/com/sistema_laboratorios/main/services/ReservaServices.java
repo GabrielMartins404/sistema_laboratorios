@@ -48,7 +48,7 @@ public class ReservaServices {
 
     @Transactional
     public void deletarReserva(Reserva reserva){
-        List<Horario> horarios = this.horarioServices.buscarHorarioPorReserva(reserva.getId());
+        List<Horario> horarios = this.horarioServices.buscarHorariosPorReserva(reserva.getId());
         for (Horario horario : horarios) {
             this.horarioServices.cancelarReservaHorario(horario);
         }

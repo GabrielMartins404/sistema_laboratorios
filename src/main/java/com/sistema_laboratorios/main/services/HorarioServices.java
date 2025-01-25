@@ -24,12 +24,12 @@ public class HorarioServices {
         return horario.orElseThrow(() -> new RuntimeException("Não foi possível buscar o horário pelo ID específicado"));
     }
 
-    public List<Horario> buscarHorarioPorLab(Long idLab){
+    public List<Horario> buscarHorariosPorLab(Long idLab){
         List<Horario> horarios = this.horarioRepository.buscarHorariosPorLaboratorio(idLab);
         return horarios;
     }
 
-    public List<Horario> buscarHorarioPorReserva(Long idReserva){
+    public List<Horario> buscarHorariosPorReserva(Long idReserva){
         List<Horario> horarios = this.horarioRepository.buscarHorarioPorReserva(idReserva);
         return horarios;
     }
