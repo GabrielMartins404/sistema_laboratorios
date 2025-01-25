@@ -45,7 +45,7 @@ public class Reserva{
 
     //Uma unica reserva pode conter vários horários. Desse modo, é preciso fazer a anotação abaixo para indicar o array de horarios que a reserva terá
     @OneToMany(mappedBy = "reservaHorario") //Indico qual coluna do Banco de dados da tabela horário a mesma será vinculada
-    @JsonManagedReference //Uso essa anotação para evitar uma visualização de loop infinito quando solicitar os horários vinculados a uma reserva 
+    @JsonBackReference //Uso essa anotação para evitar uma visualização de loop infinito quando solicitar os horários vinculados a uma reserva 
     private List<Horario> horarios = new ArrayList<Horario>();
 
 

@@ -18,6 +18,7 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 // Tabela de usuarios
@@ -54,7 +55,7 @@ public class Usuario {
 
     /* Anotações das chaves estrangeiras */
     @OneToMany(mappedBy = "usuarioReserva") //Indico que o um usuario
-    @JsonManagedReference
+    @JsonBackReference
     private List<Reserva> reservas = new ArrayList<Reserva>();
 
     public Usuario() {}
