@@ -2,8 +2,6 @@ package com.sistema_laboratorios.main.services;
 
 import java.util.List;
 import java.util.Optional;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sistema_laboratorios.main.models.Horario;
 import com.sistema_laboratorios.main.models.Reserva;
@@ -14,11 +12,15 @@ import jakarta.transaction.Transactional;
 @Service
 public class HorarioServices {
     
-    @Autowired
-    private HorarioRepository horarioRepository;
+    private final HorarioRepository horarioRepository;
 
+    //A inserção por construto permite que meus repositorios sejam imutáveis, garantindo um melhor encapsulamento
+    public HorarioServices(HorarioRepository horarioRepository) {
+        this.horarioRepository = horarioRepository;
+    }
 
     /* Métodos do services */
+
     public Horario buscarHorarioPorId(Long idHorario){
         Optional<Horario> horario = this.horarioRepository.findById(idHorario);
         return horario.orElseThrow(() -> new RuntimeException("Não foi possível buscar o horário pelo ID específicado"));
@@ -34,6 +36,7 @@ public class HorarioServices {
         return horarios;
     }
 
+    //Função tem como propósito alterar o horário, inserindo a reserva e alterando a disponibilidade falso
     @Transactional
     public Horario atualizarHorario(Horario horario, Reserva reserva){
         Horario newHorario = horario;
@@ -49,6 +52,7 @@ public class HorarioServices {
         return newHorario;
     }
 
+    //Função tem como propósito alterar o horário, retirando a reserva e alterando a disponibilidade para verdadeiro
     @Transactional
     public void cancelarReservaHorario(Horario horario){
         Horario newHorario = horario;
@@ -62,31 +66,4 @@ public class HorarioServices {
 
         this.horarioRepository.save(newHorario);
     }
-
-
-    public HorarioServices() {
-    }
-
-    public HorarioServices(HorarioRepository horarioRepository) {
-        this.horarioRepository = horarioRepository;
-    }
-
-    public HorarioRepository getHorarioRepository() {
-        return this.horarioRepository;
-    }
-
-    public void setHorarioRepository(HorarioRepository horarioRepository) {
-        this.horarioRepository = horarioRepository;
-    }
-
-    public HorarioServices horarioRepository(HorarioRepository horarioRepository) {
-        setHorarioRepository(horarioRepository);
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      return EqualsBuilder.reflectionEquals(this, o);
-    }
-    
 }

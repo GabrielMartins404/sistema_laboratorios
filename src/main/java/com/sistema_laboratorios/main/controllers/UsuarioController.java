@@ -21,8 +21,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 @Validated
 @RequestMapping("/usuario")
 public class UsuarioController {
-    @Autowired
-    private Usuarioservice usuarioservice;
+    
+    private final Usuarioservice usuarioservice;
+
+    public UsuarioController(Usuarioservice usuarioservice) {
+        this.usuarioservice = usuarioservice;
+    }
     
     @GetMapping("/{idUsuario}")
     public ResponseEntity<Usuario>buscarUsuarioPorId(@PathVariable Long idUsuario){
@@ -43,30 +47,5 @@ public class UsuarioController {
         this.usuarioservice.atualizarUsuario(usuario);
         return ResponseEntity.noContent().build();
     }
-    public UsuarioController() {
     
-    }
-    
-    public UsuarioController(Usuarioservice usuarioservice) {
-        this.usuarioservice = usuarioservice;
-    }
-
-    public Usuarioservice getUsuarioservice() {
-        return this.usuarioservice;
-    }
-
-    public void setUsuarioservice(Usuarioservice usuarioservice) {
-        this.usuarioservice = usuarioservice;
-    }
-
-    public UsuarioController usuarioservice(Usuarioservice usuarioservice) {
-        setUsuarioservice(usuarioservice);
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      return EqualsBuilder.reflectionEquals(this, o);
-    }
-
 }

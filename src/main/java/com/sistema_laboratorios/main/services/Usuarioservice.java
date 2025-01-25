@@ -1,7 +1,5 @@
 package com.sistema_laboratorios.main.services;
 import java.util.Optional;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sistema_laboratorios.main.models.Usuario;
 import com.sistema_laboratorios.main.repositories.UsuarioRepository;
@@ -10,14 +8,17 @@ import jakarta.transaction.Transactional;
 @Service
 public class Usuarioservice{
    
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
+
+    public Usuarioservice(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
+
+    /* Métodos do services */
 
     public Usuario buscarUsuarioPorId(Long idUsuario){
-
         Optional<Usuario> usuario = this.usuarioRepository.findById(idUsuario);
         return usuario.orElseThrow(() -> new RuntimeException("Falha ao buscar usuário por id!"));
-
     }
     
     @Transactional
@@ -45,35 +46,12 @@ public class Usuarioservice{
             throw new RuntimeException("Falha ao atualizar usuário! Erro de id");
         }
     }
+    
     public Usuario loginUsuario (String matricula, String senha){
         Optional<Usuario> usuario = this.usuarioRepository.userFindLogin(matricula, senha);
-       return usuario.orElseThrow(() -> new RuntimeException("Usuario e/ou senha incorretos"));
-        }
-
-    public Usuarioservice() {
+        return usuario.orElseThrow(() -> new RuntimeException("Usuario e/ou senha incorretos"));
     }
 
-    public Usuarioservice(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
-    }
-
-    public UsuarioRepository getUsuarioRepository() {
-        return this.usuarioRepository;
-    }
-
-    public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
-    }
-
-    public Usuarioservice usuarioRepository(UsuarioRepository usuarioRepository) {
-        setUsuarioRepository(usuarioRepository);
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      return EqualsBuilder.reflectionEquals(this, o);
-    }
 }
     
 

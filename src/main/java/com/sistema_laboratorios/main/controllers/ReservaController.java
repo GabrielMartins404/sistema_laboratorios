@@ -26,11 +26,15 @@ import java.util.Objects;
 @RequestMapping("/reserva")
 @Validated
 public class ReservaController {
-    @Autowired
-    private ReservaServices reservaServices;
+    
+    private final ReservaServices reservaServices;
 
-    @Autowired
-    private Usuarioservice usuarioservice;
+    private final Usuarioservice usuarioservice;
+
+    public ReservaController(ReservaServices reservaServices, Usuarioservice usuarioservice) {
+        this.reservaServices = reservaServices;
+        this.usuarioservice = usuarioservice;
+    }
 
     @GetMapping("/{idReserva}")
     public ResponseEntity<Reserva> findReserveById(@PathVariable Long idReserve){
@@ -50,49 +54,5 @@ public class ReservaController {
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{idReserva}").buildAndExpand(reserva.getId()).toUri();
         return ResponseEntity.created(uri).build();
-    }
-
-    public ReservaController() {
-    }
-
-    public ReservaController(ReservaServices reservaServices, Usuarioservice usuarioservice) {
-        this.reservaServices = reservaServices;
-        this.usuarioservice = usuarioservice;
-    }
-
-    public ReservaServices getReservaServices() {
-        return this.reservaServices;
-    }
-
-    public void setReservaServices(ReservaServices reservaServices) {
-        this.reservaServices = reservaServices;
-    }
-
-    public Usuarioservice getUsuarioservice() {
-        return this.usuarioservice;
-    }
-
-    public void setUsuarioservice(Usuarioservice usuarioservice) {
-        this.usuarioservice = usuarioservice;
-    }
-
-    public ReservaController reservaServices(ReservaServices reservaServices) {
-        setReservaServices(reservaServices);
-        return this;
-    }
-
-    public ReservaController usuarioservice(Usuarioservice usuarioservice) {
-        setUsuarioservice(usuarioservice);
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      return EqualsBuilder.reflectionEquals(this, o);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(reservaServices, usuarioservice);
     }
 }

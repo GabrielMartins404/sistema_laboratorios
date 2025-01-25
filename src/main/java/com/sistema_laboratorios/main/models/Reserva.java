@@ -40,7 +40,6 @@ public class Reserva{
     //Várias reservar podem ser feitas por um só usuário
     @ManyToOne
     @JoinColumn(name = "usuarioReserva", nullable = false) //Aqui indico que ele deve criar uma coluna que será essa chave estrangeira
-    @JsonBackReference
     private Usuario usuarioReserva;
 
     //Uma unica reserva pode conter vários horários. Desse modo, é preciso fazer a anotação abaixo para indicar o array de horarios que a reserva terá

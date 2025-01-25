@@ -1,7 +1,5 @@
 package com.sistema_laboratorios.main.services;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sistema_laboratorios.main.models.Horario;
@@ -12,19 +10,22 @@ import com.sistema_laboratorios.main.repositories.ReservaRepository;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.sql.Date;
 import java.time.LocalDate;
 
 @Service
 public class ReservaServices {
-    @Autowired
     private ReservaRepository reservaRepository;
 
-    @Autowired
     private HorarioServices horarioServices;
 
+    public ReservaServices(ReservaRepository reservaRepository, HorarioServices horarioServices) {
+        this.reservaRepository = reservaRepository;
+        this.horarioServices = horarioServices;
+    }
+
+    /* Métodos do service */
 
     public Reserva buscarReservaPorId(Long idReserva){
         Optional<Reserva> reserva = this.reservaRepository.findById(idReserva);
@@ -59,50 +60,5 @@ public class ReservaServices {
             throw new RuntimeException("Não foi possível deletar a reserva");
         }
     }
-
-    public ReservaServices() {
-    }
-
-    public ReservaServices(ReservaRepository reservaRepository, HorarioServices horarioServices) {
-        this.reservaRepository = reservaRepository;
-        this.horarioServices = horarioServices;
-    }
-
-    public ReservaRepository getReservaRepository() {
-        return this.reservaRepository;
-    }
-
-    public void setReservaRepository(ReservaRepository reservaRepository) {
-        this.reservaRepository = reservaRepository;
-    }
-
-    public HorarioServices getHorarioServices() {
-        return this.horarioServices;
-    }
-
-    public void setHorarioServices(HorarioServices horarioServices) {
-        this.horarioServices = horarioServices;
-    }
-
-    public ReservaServices reservaRepository(ReservaRepository reservaRepository) {
-        setReservaRepository(reservaRepository);
-        return this;
-    }
-
-    public ReservaServices horarioServices(HorarioServices horarioServices) {
-        setHorarioServices(horarioServices);
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      return EqualsBuilder.reflectionEquals(this, o);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(reservaRepository, horarioServices);
-    }
-
     
 }
