@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,7 @@ public class ReservaController {
         this.usuarioservice = usuarioservice;
     }
 
+    //Verificar se vai ser usado
     @GetMapping("/{idReserva}")
     public ResponseEntity<Reserva> findReserveById(@PathVariable Long idReserve){
         Reserva reserva = this.reservaServices.buscarReservaPorId(idReserve);
@@ -54,5 +56,13 @@ public class ReservaController {
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{idReserva}").buildAndExpand(reserva.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    //Cancelar reserva
+    @DeleteMapping("/{idReserva}")
+    public ResponseEntity<Void> cancelarReserva(@PathVariable Long idReserva){
+        Reserva reserva = this.reservaServices.buscarReservaPorId(idReserva);
+        this.reservaServices.deletarReserva(reserva);
+        return ResponseEntity.noContent().build();
     }
 }
