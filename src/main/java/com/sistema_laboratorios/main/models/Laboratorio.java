@@ -94,21 +94,6 @@ public class Laboratorio {
         return this;
     }
 
-    public Laboratorio detalhamentoLab(String detalhamentoLab) {
-        setDetalhamentoLab(detalhamentoLab);
-        return this;
-    }
-
-    public Laboratorio descricao(String descricao) {
-        setDescricao(descricao);
-        return this;
-    }
-
-    public Laboratorio capacidade(Integer capacidade) {
-        setCapacidade(capacidade);
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
       return EqualsBuilder.reflectionEquals(this, o);

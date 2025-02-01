@@ -117,36 +117,6 @@ public class Usuario {
         this.matricula = matricula;
     }
 
-    public Usuario id(Long id) {
-        setId(id);
-        return this;
-    }
-
-    public Usuario curso(String curso) {
-        setCurso(curso);
-        return this;
-    }
-
-    public Usuario senha(String senha) {
-        setSenha(senha);
-        return this;
-    }
-
-    public Usuario nascimento(Date nascimento) {
-        setNascimento(nascimento);
-        return this;
-    }
-
-    public Usuario nome(String nome) {
-        setNome(nome);
-        return this;
-    }
-
-    public Usuario matricula(String matricula) {
-        setMatricula(matricula);
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
       return EqualsBuilder.reflectionEquals(this, o);

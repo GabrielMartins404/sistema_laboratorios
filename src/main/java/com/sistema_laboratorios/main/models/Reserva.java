@@ -89,26 +89,6 @@ public class Reserva{
         this.horarios = horarios;
     }
 
-    public Reserva id(Long id) {
-        setId(id);
-        return this;
-    }
-
-    public Reserva dataReserva(Date dataReserva) {
-        setDataReserva(dataReserva);
-        return this;
-    }
-
-    public Reserva usuarioReserva(Usuario usuarioReserva) {
-        setUsuarioReserva(usuarioReserva);
-        return this;
-    }
-
-    public Reserva horarios(List<Horario> horarios) {
-        setHorarios(horarios);
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
       return EqualsBuilder.reflectionEquals(this, o);
