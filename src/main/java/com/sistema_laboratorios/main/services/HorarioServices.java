@@ -36,16 +36,24 @@ public class HorarioServices {
         return horarios;
     }
 
+    public boolean verificarDisponibilidadeHorario(Horario horario){
+        //Essa função tem como propósito, receber o horário e comparar no banco de dados, se o mesmo está disponível
+        Horario horarioBancoDeDados = this.buscarHorarioPorId(horario.getId());
+        if(horarioBancoDeDados.getDisponivel()){
+            return true;
+        }else{
+            throw new RuntimeException("Horário das " + horario.getHoraInicio() + " - " + horario.getHoraFim() +  " não está disponível" );
+        }
+    }
+
     //Função tem como propósito alterar o horário, inserindo a reserva e alterando a disponibilidade falso
     @Transactional
     public Horario atualizarHorario(Horario horario, Reserva reserva){
         Horario newHorario = horario;
 
-        if(horario.getDisponivel()){
+        if(verificarDisponibilidadeHorario(horario)){
             newHorario.setDisponivel(false);
             newHorario.setReservaHorario(reserva);
-        }else{
-            new RuntimeException("Horário não está disponível");
         }
 
         this.horarioRepository.save(newHorario);

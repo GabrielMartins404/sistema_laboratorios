@@ -9,6 +9,7 @@ import com.sistema_laboratorios.main.repositories.ReservaRepository;
 
 import jakarta.transaction.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.sql.Date;
@@ -34,13 +35,22 @@ public class ReservaServices {
 
     @Transactional
     public Reserva criarReserva(List<Horario> horarios, Usuario usuario){
+        List<Horario> horariosDisponiveis = new ArrayList<Horario>();
+
+        //Esse for tem como proposito, verificar se os horários estão disponíveis antes de gerar a reserva
+        for (Horario horario : horarios) {
+            if(this.horarioServices.verificarDisponibilidadeHorario(horario)){
+                horariosDisponiveis.add(horario);
+            }
+        }
+
         LocalDate getDate = LocalDate.now();
         Date dataAtual = Date.valueOf(getDate);
         Reserva reserva = new Reserva(null, dataAtual, usuario);
 
         this.reservaRepository.save(reserva);
 
-        for (Horario horario : horarios) {
+        for (Horario horario : horariosDisponiveis) {
             this.horarioServices.atualizarHorario(horario, reserva);
         }
 
