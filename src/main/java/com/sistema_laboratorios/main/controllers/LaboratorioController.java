@@ -24,7 +24,7 @@ public class LaboratorioController {
     @GetMapping("/")
     public ResponseEntity<List<Laboratorio>> buscarTodosOsLaboratorios(){
         List<Laboratorio> laboratorios = this.laboratorioServices.buscarTodosLaboratorios();
-         return ResponseEntity.ok().body(laboratorios);
+        return ResponseEntity.ok().body(laboratorios);
     }
     
     @GetMapping("/{idLaboratorio}")

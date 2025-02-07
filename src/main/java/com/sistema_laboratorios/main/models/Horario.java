@@ -1,6 +1,5 @@
 package com.sistema_laboratorios.main.models;
 
-import java.sql.Date;
 import java.sql.Time;
 
 import jakarta.persistence.Column;
@@ -31,6 +30,9 @@ public class Horario {
     @Column(name = "horaFim", nullable = false)
     private Time horaFim;
 
+    @Column(name = "diaSemana", nullable = false)
+    private String diaSemana;
+
     @Column(name = "disponivel", columnDefinition = "TINYINT(1) DEFAULT 1")
     private boolean disponivel = true;
 
@@ -50,10 +52,11 @@ public class Horario {
     public Horario() {
     }
 
-    public Horario(Long id, Time horaInicio, Time horaFim, boolean disponivel, Laboratorio laboratorioHorario, Reserva reservaHorario) {
+    public Horario(Long id, Time horaInicio, Time horaFim, String diaSemana, boolean disponivel, Laboratorio laboratorioHorario, Reserva reservaHorario) {
         this.id = id;
         this.horaInicio = horaInicio;
         this.horaFim = horaFim;
+        this.diaSemana = diaSemana;
         this.disponivel = disponivel;
         this.laboratorioHorario = laboratorioHorario;
         this.reservaHorario = reservaHorario;
@@ -81,6 +84,14 @@ public class Horario {
 
     public void setHoraFim(Time horaFim) {
         this.horaFim = horaFim;
+    }
+
+    public String getDiaSemana() {
+        return this.diaSemana;
+    }
+
+    public void setDiaSemana(String diaSemana) {
+        this.diaSemana = diaSemana;
     }
 
     public boolean getDisponivel() {

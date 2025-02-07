@@ -3,7 +3,6 @@ package com.sistema_laboratorios.main.models;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,12 +31,20 @@ public class Laboratorio {
 
     @Column(name = "descricao", length = 100, nullable = false )
     @NotBlank
-    private String detalhamentoLab; 
+    private String descricao;
 
     @Column(name = "detalhesLab", columnDefinition = "TEXT", nullable = true)
     @NotBlank
-    private String descricao;
-    
+    private String detalhamentoLab;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Column(name = "localizacaoLab", length = 100, nullable = false )
+    @NotBlank
+    private String localizacaoLab;
+
     @Column(name = "capacidade", nullable = true)
     @NotNull
     private Integer capacidade; 
@@ -50,10 +57,11 @@ public class Laboratorio {
     public Laboratorio() {
     }
 
-    public Laboratorio(long id, String detalhamentoLab, String descricao, Integer capacidade) {
+    public Laboratorio(long id, String detalhamentoLab, String descricao, String localizacaoLab, Integer capacidade) {
         this.id = id;
         this.detalhamentoLab = detalhamentoLab;
         this.descricao = descricao;
+        this.localizacaoLab = localizacaoLab;
         this.capacidade = capacidade;
     }
 
@@ -81,6 +89,14 @@ public class Laboratorio {
         this.descricao = descricao;
     }
 
+    public String getLocalizacaoLab() {
+        return this.localizacaoLab;
+    }
+
+    public void setLocalizacaoLab(String detalhamentoLab) {
+        this.detalhamentoLab = detalhamentoLab;
+    }
+
     public Integer getCapacidade() {
         return this.capacidade;
     }
@@ -101,7 +117,7 @@ public class Laboratorio {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, detalhamentoLab, descricao, capacidade);
+        return Objects.hash(id, detalhamentoLab, descricao, localizacaoLab, capacidade);
     }
 
   
