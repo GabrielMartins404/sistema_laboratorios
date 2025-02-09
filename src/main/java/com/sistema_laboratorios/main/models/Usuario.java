@@ -1,6 +1,7 @@
 package com.sistema_laboratorios.main.models;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -42,7 +44,6 @@ public class Usuario {
     private String matricula;
 
     @Column(name = "senha", length = 20, nullable = false)
-    @Size(min = 8, max = 20) //Indicação do tamanho máximo e minimo do campo
     @NotBlank
     private String senha;
 
@@ -51,7 +52,7 @@ public class Usuario {
     private String nome;
 
     @Column(name = "nascimento")
-    private Date nascimento;
+    private LocalDate nascimento;
 
     /* Anotações das chaves estrangeiras */
     @OneToMany(mappedBy = "usuarioReserva") //Indico que o um usuario
@@ -60,7 +61,7 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Usuario(Long id, String curso, String senha, Date nascimento, String nome, String matricula) {
+    public Usuario(Long id, String curso, String senha, LocalDate nascimento, String nome, String matricula) {
         this.id = id;
         this.curso = curso;
         this.senha = senha;
@@ -93,11 +94,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public Date getNascimento() {
+    public LocalDate getNascimento() {
         return this.nascimento;
     }
 
-    public void setNascimento(Date nascimento) {
+    public void setNascimento(LocalDate nascimento) {
         this.nascimento = nascimento;
     }
 
@@ -126,4 +127,16 @@ public class Usuario {
     public int hashCode() {
         return Objects.hash(id, curso, senha, nascimento, nome, matricula);
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", curso='" + getCurso() + "'" +
+            ", matricula='" + getMatricula() + "'" +
+            ", senha='" + getSenha() + "'" +
+            ", nome='" + getNome() + "'" +
+            "}";
+    }
+
 }

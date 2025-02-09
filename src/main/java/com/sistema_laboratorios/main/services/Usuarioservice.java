@@ -1,8 +1,17 @@
 package com.sistema_laboratorios.main.services;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
+
+import com.sistema_laboratorios.main.dto.UsuarioAtualizacaoDto;
+import com.sistema_laboratorios.main.dto.UsuarioRetornoDto;
 import com.sistema_laboratorios.main.models.Usuario;
 import com.sistema_laboratorios.main.repositories.UsuarioRepository;
+
+import io.micrometer.common.util.StringUtils;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -21,11 +30,23 @@ public class Usuarioservice{
         return usuario.orElseThrow(() -> new RuntimeException("Falha ao buscar usuário por id!"));
     }
     
+    //Essa função tem como propósito, converter um usuário em usuárioDTO
+    public UsuarioRetornoDto criarUsuarioDto(Usuario usuario){
+        UsuarioRetornoDto usuarioDto = new UsuarioRetornoDto(
+            usuario.getId(), 
+            usuario.getNome(), 
+            usuario.getMatricula(), 
+            usuario.getNascimento(),
+            usuario.getCurso()
+        );
+        return usuarioDto;
+    }
+
     @Transactional
     public Usuario criarUsuario(Usuario usuario){
         
          if(this.usuarioRepository.userFindMatricula(usuario.getMatricula()).isPresent()){
-            throw new RuntimeException("Usuário já existente!");
+            throw new RuntimeException("Usuário já existente! Fazer login, por favor!");
          }else{
             usuario.setId(null);
             this.usuarioRepository.save(usuario);
@@ -34,22 +55,37 @@ public class Usuarioservice{
     }
 
     @Transactional
-    public Usuario atualizarUsuario(Usuario usuario){
-        Optional<Usuario> newUsuario = this.usuarioRepository.findById(usuario.getId());
+    public UsuarioRetornoDto atualizarUsuario(UsuarioAtualizacaoDto usuarioDto){
+        Optional<Usuario> newUsuario = this.usuarioRepository.findById(usuarioDto.getId());
 
         if(newUsuario.isPresent()){
-            newUsuario.get().setNome(usuario.getNome());
-            newUsuario.get().setNascimento(usuario.getNascimento());
-            newUsuario.get().setSenha(usuario.getSenha());
-            return this.usuarioRepository.save(newUsuario.get());
+    
+            newUsuario.get().setNome(usuarioDto.getNome());
+            newUsuario.get().setNascimento(usuarioDto.getNascimento());
+            //System.out.println("Resultado ==========" + usuarioDto.toString());
+            newUsuario.get().setCurso(usuarioDto.getCurso());
+            if(StringUtils.isNotBlank(usuarioDto.getSenha())){
+                newUsuario.get().setSenha(usuarioDto.getSenha());
+            }
+
+            this.usuarioRepository.save(newUsuario.get());
+            return this.criarUsuarioDto(newUsuario.get());
+
+
         } else{
             throw new RuntimeException("Falha ao atualizar usuário! Erro de id");
         }
     }
     
-    public Usuario loginUsuario (String matricula, String senha){
+    public UsuarioRetornoDto loginUsuario (String matricula, String senha){
         Optional<Usuario> usuario = this.usuarioRepository.userFindLogin(matricula, senha);
-        return usuario.orElseThrow(() -> new RuntimeException("Usuario e/ou senha incorretos"));
+
+        if (usuario.isPresent()) {
+            return this.criarUsuarioDto(usuario.get());
+        } else {
+            throw new RuntimeException("Usuario e/ou senha incorretos");
+        }
+        //return usuario.orElseThrow(() -> new RuntimeException("Usuario e/ou senha incorretos"));
     }
 
 }

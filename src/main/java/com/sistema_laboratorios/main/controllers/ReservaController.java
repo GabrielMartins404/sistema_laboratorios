@@ -21,7 +21,6 @@ import com.sistema_laboratorios.main.services.Usuarioservice;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/reserva")
@@ -37,10 +36,10 @@ public class ReservaController {
         this.usuarioservice = usuarioservice;
     }
 
-    //Verificar se vai ser usado
-    @GetMapping("/{idReserva}")
-    public ResponseEntity<Reserva> findReserveById(@PathVariable Long idReserve){
-        Reserva reserva = this.reservaServices.buscarReservaPorId(idReserve);
+    //Buscar reservas por usuário
+    @GetMapping("/usuario/{idUsuario}")
+    public ResponseEntity<List<Reserva>> findReserveById(@PathVariable Long idUsuario){
+        List<Reserva> reserva = this.reservaServices.buscarReservasPorUsuario(idUsuario);
         return ResponseEntity.ok().body(reserva);
     }
     

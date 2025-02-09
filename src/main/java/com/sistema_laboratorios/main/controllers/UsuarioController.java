@@ -1,15 +1,17 @@
 package com.sistema_laboratorios.main.controllers;
 import java.net.URI;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.sistema_laboratorios.main.services.Usuarioservice;
+import com.sistema_laboratorios.main.dto.UsuarioAtualizacaoDto;
+import com.sistema_laboratorios.main.dto.UsuarioRetornoDto;
 import com.sistema_laboratorios.main.models.Usuario;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,18 +36,27 @@ public class UsuarioController {
         return ResponseEntity.ok().body(usuario);
     }
 
-    @PostMapping("/{idUsuario}")
+    //Implementação do controller de login de usuário
+    //Como não posso retornar a senha, uso o ResponseEntity<?> para que eu consiga personalizar o retorno
+    @GetMapping("/loginUsuario")
+    public ResponseEntity<?> loginUsuario(@RequestParam String matricula, @RequestParam String senha){
+        UsuarioRetornoDto usuarioDto = this.usuarioservice.loginUsuario(matricula, senha);
+        return ResponseEntity.ok().body(usuarioDto);
+    }
+
+    @PostMapping("/")
     public ResponseEntity<Usuario> criarUsuario(@RequestBody Usuario usuario){
         this.usuarioservice.criarUsuario(usuario);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{idUsuario}").buildAndExpand(usuario.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> atualizarUsuario(@RequestBody Usuario usuario, @PathVariable Long idUsuario){
-        usuario.setId(idUsuario);
-        this.usuarioservice.atualizarUsuario(usuario);
-        return ResponseEntity.noContent().build();
+    @PutMapping("/{idUsuario}")
+    public ResponseEntity<UsuarioRetornoDto> atualizarUsuario(@RequestBody UsuarioAtualizacaoDto usuarioDto, @PathVariable Long idUsuario){
+        
+        usuarioDto.setId(idUsuario);
+        UsuarioRetornoDto usuarioRetorno = this.usuarioservice.atualizarUsuario(usuarioDto);
+        return ResponseEntity.ok(usuarioRetorno);
     }
     
 }

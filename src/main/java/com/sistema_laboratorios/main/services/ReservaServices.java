@@ -33,6 +33,11 @@ public class ReservaServices {
         return reserva.orElseThrow(() -> new RuntimeException("Falha ao buscar reserva por id"));
     }
 
+    public List<Reserva> buscarReservasPorUsuario(Long usuId){
+        List<Reserva> reserva = this.reservaRepository.buscarReservasPorUsuario(usuId);
+        return reserva;
+    }
+
     @Transactional
     public Reserva criarReserva(List<Horario> horarios, Usuario usuario){
         List<Horario> horariosDisponiveis = new ArrayList<Horario>();
