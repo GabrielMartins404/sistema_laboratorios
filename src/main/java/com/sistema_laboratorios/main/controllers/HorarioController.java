@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.sistema_laboratorios.main.models.Horario;
 import com.sistema_laboratorios.main.services.HorarioServices;
-import com.sistema_laboratorios.main.services.ReservaServices;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -18,11 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HorarioController {
     private final HorarioServices horarioServices;
 
-    private final ReservaServices reservaServices;
-
-    public HorarioController(HorarioServices horarioServices, ReservaServices reservaServices) {
+    public HorarioController(HorarioServices horarioServices) {
         this.horarioServices = horarioServices;
-        this.reservaServices = reservaServices;
     }
 
     @GetMapping("/lab/{idLab}")

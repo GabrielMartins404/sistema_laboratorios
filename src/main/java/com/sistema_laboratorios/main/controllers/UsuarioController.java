@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.sistema_laboratorios.main.services.Usuarioservice;
-import com.sistema_laboratorios.main.dto.UsuarioAtualizacaoDto;
 import com.sistema_laboratorios.main.dto.UsuarioRetornoDto;
 import com.sistema_laboratorios.main.models.Usuario;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +29,7 @@ public class UsuarioController {
         this.usuarioservice = usuarioservice;
     }
     
+    //Essa rota serve para o redirecionar a navegação após a criação de um usuário
     @GetMapping("/{idUsuario}")
     public ResponseEntity<Usuario>buscarUsuarioPorId(@PathVariable Long idUsuario){
         Usuario usuario = this.usuarioservice.buscarUsuarioPorId(idUsuario);
@@ -52,10 +52,9 @@ public class UsuarioController {
         return ResponseEntity.created(uri).build();
     }
     @PutMapping("/{idUsuario}")
-    public ResponseEntity<UsuarioRetornoDto> atualizarUsuario(@RequestBody UsuarioAtualizacaoDto usuarioDto, @PathVariable Long idUsuario){
-        
-        usuarioDto.setId(idUsuario);
-        UsuarioRetornoDto usuarioRetorno = this.usuarioservice.atualizarUsuario(usuarioDto);
+    public ResponseEntity<UsuarioRetornoDto> atualizarUsuario(@RequestBody Usuario usuario, @PathVariable Long idUsuario){
+        usuario.setId(idUsuario);
+        UsuarioRetornoDto usuarioRetorno = this.usuarioservice.atualizarUsuario(usuario);
         return ResponseEntity.ok(usuarioRetorno);
     }
     

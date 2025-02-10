@@ -1,6 +1,5 @@
 package com.sistema_laboratorios.main.dto;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class UsuarioRetornoDto {

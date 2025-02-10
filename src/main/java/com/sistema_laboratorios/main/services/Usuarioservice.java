@@ -1,12 +1,7 @@
 package com.sistema_laboratorios.main.services;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
+
 import java.util.Optional;
 import org.springframework.stereotype.Service;
-
-import com.sistema_laboratorios.main.dto.UsuarioAtualizacaoDto;
 import com.sistema_laboratorios.main.dto.UsuarioRetornoDto;
 import com.sistema_laboratorios.main.models.Usuario;
 import com.sistema_laboratorios.main.repositories.UsuarioRepository;
@@ -55,7 +50,7 @@ public class Usuarioservice{
     }
 
     @Transactional
-    public UsuarioRetornoDto atualizarUsuario(UsuarioAtualizacaoDto usuarioDto){
+    public UsuarioRetornoDto atualizarUsuario(Usuario usuarioDto){
         Optional<Usuario> newUsuario = this.usuarioRepository.findById(usuarioDto.getId());
 
         if(newUsuario.isPresent()){
