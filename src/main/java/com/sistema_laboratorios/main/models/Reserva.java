@@ -1,6 +1,7 @@
 package com.sistema_laboratorios.main.models;
 
-import java.sql.Date;
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Reserva{
 
     @Column(name = "dataReserva", nullable = false)
     @NotNull
-    private Date dataReserva;
+    private LocalDate dataReserva;
     
     /* Anotações das chaves estrangeiras do banco */
 
@@ -50,7 +51,7 @@ public class Reserva{
     public Reserva() {
     }
 
-    public Reserva(Long id, Date dataReserva, Usuario usuarioReserva) {
+    public Reserva(Long id, LocalDate dataReserva, Usuario usuarioReserva) {
         this.id = id;
         this.dataReserva = dataReserva;
         this.usuarioReserva = usuarioReserva;
@@ -64,11 +65,11 @@ public class Reserva{
         this.id = id;
     }
 
-    public Date getDataReserva() {
+    public LocalDate getDataReserva() {
         return this.dataReserva;
     }
 
-    public void setDataReserva(Date dataReserva) {
+    public void setDataReserva(LocalDate dataReserva) {
         this.dataReserva = dataReserva;
     }
 
