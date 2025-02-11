@@ -1,6 +1,13 @@
 package com.sistema_laboratorios.main.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,14 +17,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 // Tabela de usuarios
 @Entity //Defino a classe como entidade
@@ -124,15 +123,5 @@ public class Usuario {
         return Objects.hash(id, curso, senha, nascimento, nome, matricula);
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            ", curso='" + getCurso() + "'" +
-            ", matricula='" + getMatricula() + "'" +
-            ", senha='" + getSenha() + "'" +
-            ", nome='" + getNome() + "'" +
-            "}";
-    }
 
 }
