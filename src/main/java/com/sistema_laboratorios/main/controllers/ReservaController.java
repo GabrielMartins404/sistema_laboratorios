@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.sistema_laboratorios.main.dto.ReservaRetornoDto;
 import com.sistema_laboratorios.main.models.Horario;
 import com.sistema_laboratorios.main.models.Reserva;
 import com.sistema_laboratorios.main.models.Usuario;
@@ -36,9 +37,9 @@ public class ReservaController {
 
     //Buscar reservas por usuário
     @GetMapping("/usuario/{idUsuario}")
-    public ResponseEntity<List<Reserva>> findReserveById(@PathVariable Long idUsuario){
-        List<Reserva> reserva = this.reservaServices.buscarReservasPorUsuario(idUsuario);
-        return ResponseEntity.ok().body(reserva);
+    public ResponseEntity<List<ReservaRetornoDto>> findReserveById(@PathVariable Long idUsuario){
+        List<ReservaRetornoDto> reservaDto = this.reservaServices.buscarReservasPorUsuario(idUsuario);
+        return ResponseEntity.ok().body(reservaDto);
     }
     
     // Criar reserva 
