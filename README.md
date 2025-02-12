@@ -53,12 +53,8 @@ Este projeto é desenvolvido com Spring Boot e segue uma arquitetura modular bas
     - MainApplication.java: Classe principal que inicia a aplicação Spring Boot. (Obs.: Se for um serviço, normalmente ele estaria separado dos controladores e modelos, então pode ser interessante reorganizar esse arquivo caso ele seja o ponto de entrada da aplicação.)  
 
 - src/main/resources/ (Arquivos de configuração e recursos estáticos)
-  - Contém arquivos como application.properties ou application.yml`, que definem configurações do sistema.  
-
-- test/ (Testes automatizados da aplicação)* 
-
-- om.xml (Gerenciamento de dependências e build da aplicação usando Maven)  
-
+  - Contém arquivos como application.properties ou application.yml`, que definem configurações do sistema.
+  
  Sobre a Arquitetura  
 O projeto segue o padrão MVC (Model-View-Controller), separando responsabilidades entre as camadas:  
 ✔ Models representam os dados da aplicação.  
