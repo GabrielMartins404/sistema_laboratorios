@@ -1,7 +1,7 @@
 # Sistema de laboratorios BackEnd
 
 ## Descrição
-Este é um sistema desenvolvido em Spring Boot para gerenciar laboratórios e seus respectivos horários de funcionamento. Ele permite o cadasa visualização de laboratórios e horários, cadastro de usuários, criação e cancelamento de reservas.
+Este é um sistema desenvolvido em Spring Boot para gerenciar laboratórios e seus respectivos horários de funcionamento. Ele permite a visualização de laboratórios e horários, cadastro de usuários, criação e cancelamento de reservas.
 
 ##Tecnologias usadas
 Java versão 23
